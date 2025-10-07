@@ -1,0 +1,1 @@
+# Sensor data Django app
