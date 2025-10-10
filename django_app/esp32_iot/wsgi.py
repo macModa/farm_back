@@ -16,6 +16,7 @@ django.setup()
 
 # Now import the WSGI application
 from django.core.wsgi import get_wsgi_application
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'esp32_iot.settings')
 application = get_wsgi_application()
 
 # Import and start MQTT handler after Django is fully loaded
