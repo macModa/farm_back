@@ -1,1 +1,0 @@
-# MQTT Handler module for ESP32 IoT project

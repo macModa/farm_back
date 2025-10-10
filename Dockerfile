@@ -1,33 +1,41 @@
-FROM python:3.11-slim
+# --- Stage 1: Builder ---
+# This stage installs dependencies, including those that need to be compiled.
+FROM python:3.11-slim as builder
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Set work directory
-WORKDIR /app
-
-# Install system dependencies
+# Install build-time system dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         gcc \
         python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install Python dependencies
+# Install Python dependencies into a wheelhouse
+WORKDIR /wheels
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
 
-# Copy project
-COPY django_app/ /app/
-COPY mqtt_handler/ /app/mqtt_handler/
-COPY scripts/ /app/scripts/
+# --- Stage 2: Final ---
+# This is the final, lightweight image.
+FROM python:3.11-slim
+
+# Set the working directory for the entire project
+WORKDIR /app
+
+# Copy pre-built wheels from the builder stage and install them
+COPY --from=builder /wheels /wheels
+COPY requirements.txt .
+RUN pip install --no-cache --find-links=/wheels -r requirements.txt
+RUN rm -rf /wheels
 
 # Create necessary directories
-RUN mkdir -p /app/logs
+RUN mkdir -p /app/django_app/logs
 
 # Expose port
 EXPOSE 8000
 
 # Run the application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "django_app/manage.py", "runserver", "0.0.0.0:8000"]

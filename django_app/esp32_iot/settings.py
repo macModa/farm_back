@@ -56,9 +56,13 @@ WSGI_APPLICATION = 'esp32_iot.wsgi.application'
 
 # MongoDB Configuration
 MONGODB_SETTINGS = {
-    'host': os.getenv('MONGODB_URI', 'mongodb://admin:adminpassword@mongodb:27017/esp32_iot_data?authSource=admin'),
+    'host': os.getenv(
+        'MONGODB_URI',
+        'mongodb+srv://jesssser93_db_user:FydCbJAO4CqguvLu@cluster0.5y36wng.mongodb.net/farmdb?retryWrites=true&w=majority&tls=true'
+    ),
     'db': os.getenv('MONGODB_DB_NAME', 'esp32_iot_data'),
 }
+
 
 # Connect to MongoDB
 try:
@@ -71,16 +75,16 @@ except Exception as e:
 MQTT_SETTINGS = {
     'BROKER_HOST': os.getenv('MQTT_BROKER_HOST', 'u2cc2628.ala.dedicated.aws.emqxcloud.com'),
     'BROKER_PORT': int(os.getenv('MQTT_BROKER_PORT', '1883')),
-    'USERNAME': os.getenv('MQTT_USERNAME', ''),
-    'PASSWORD': os.getenv('MQTT_PASSWORD', ''),
+    'USERNAME': os.getenv('MQTT_USERNAME', 'esp32_user'),
+    'PASSWORD': os.getenv('MQTT_PASSWORD', 'esp32_pass'),
     'TOPIC': 'esp32/humidity_soil',
 }
 
 # OpenWeather API Configuration
 OPENWEATHER_SETTINGS = {
-    'API_KEY': os.getenv('OPENWEATHER_API_KEY', 'YOUR_OPENWEATHER_API_KEY_HERE'),
+    'API_KEY': os.getenv('OPENWEATHER_API_KEY', '0b5d680180d9c99eecfebfd9982873fd'),
     'CITY': os.getenv('OPENWEATHER_CITY', 'Tunis'),
-    'BASE_URL': 'http://api.openweathermap.org/data/2.5'
+    'BASE_URL': 'https://api.openweathermap.org/data/2.5'
 }
 
 # Database (SQLite for Django admin, but we use MongoDB for data storage)
