@@ -124,25 +124,28 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Logging configuration
+import os
+
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/app/logs/mqtt.log',
+            'filename': os.path.join(LOG_DIR, 'mqtt.log'),
         },
         'console': {
-            'level': 'INFO',
             'class': 'logging.StreamHandler',
         },
     },
     'loggers': {
-        'mqtt_handler': {
+        'mqtt': {
             'handlers': ['file', 'console'],
-            'level': 'INFO',
-            'propagate': True,
+            'level': 'DEBUG',
         },
     },
 }
