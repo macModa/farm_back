@@ -13,7 +13,7 @@
  const char* password = "";
  
  // MQTT Configuration (EMQX Cloud)
- const char* mqtt_server = "u2cc2628.ala.dedicated.aws.emqxcloud.com";
+ const char* mqtt_server = "j2a24bbb.ala.dedicated.aws.emqxcloud.com";
  const int mqtt_port = 8883;
  const char* mqtt_user = "esp32_user";
  const char* mqtt_password = "esp32_pass";

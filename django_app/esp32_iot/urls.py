@@ -10,4 +10,5 @@ urlpatterns = [
     path('api/', include('sensor_data.urls')),
     path('dashboard/', include('sensor_data.urls')),
     path('', redirect_to_dashboard),
+    
 ]

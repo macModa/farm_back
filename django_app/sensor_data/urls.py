@@ -18,4 +18,5 @@ urlpatterns = [
     path('api/chart-data/', dashboard_views.api_chart_data, name='api_chart_data'),
     path('api/realtime/', dashboard_views.api_realtime_data, name='api_realtime_data'),
     path('api/statistics/', dashboard_views.api_statistics_summary, name='api_statistics_summary'),
+    
 ]

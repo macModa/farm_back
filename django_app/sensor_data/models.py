@@ -1,4 +1,4 @@
-from mongoengine import Document, FloatField, DateTimeField
+from mongoengine import Document, FloatField, DateTimeField, StringField
 from datetime import datetime
 
 class SensorData(Document):
@@ -39,3 +39,4 @@ class SensorData(Document):
     def get_readings_by_date_range(cls, start_date, end_date):
         """Get readings within a date range"""
         return cls.objects.filter(timestamp__gte=start_date, timestamp__lte=end_date).order_by('-timestamp')
+    

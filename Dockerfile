@@ -1,6 +1,6 @@
 # --- Stage 1: Builder ---
 # This stage installs dependencies, including those that need to be compiled.
-FROM python:3.11-slim as builder
+FROM python:3.11-slim AS builder
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1

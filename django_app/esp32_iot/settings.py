@@ -2,18 +2,14 @@ import os
 from pathlib import Path
 import mongoengine
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# ------------------------------
+# BASE DJANGO CONFIG
+# ------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-esp32-iot-project-key-change-in-production')
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
-
 ALLOWED_HOSTS = ['*']
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,40 +50,47 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'esp32_iot.wsgi.application'
 
-# MongoDB Configuration
+# ------------------------------
+# MONGODB ATLAS CONFIG
+# ------------------------------
 MONGODB_SETTINGS = {
-    'host': os.getenv(
-        'MONGODB_URI',
-        'mongodb+srv://jesssser93_db_user:FydCbJAO4CqguvLu@cluster0.5y36wng.mongodb.net/farmdb?retryWrites=true&w=majority&tls=true'
-    ),
-    'db': os.getenv('MONGODB_DB_NAME', 'esp32_iot_data'),
+    "db": "farmdb",
+    "host": "mongodb+srv://jmihoussem552_db_user:pLhziopH28UmvNbo@cluster0.i2ke9ev.mongodb.net/farmdb?retryWrites=true&w=majority",
+    "tls": True,
+    "tlsAllowInvalidCertificates": True,  # pour éviter SSL sur Windows
 }
 
-
-# Connect to MongoDB
 try:
+    # éviter erreur “alias default already registered”
+    mongoengine.disconnect(alias='default')
     mongoengine.connect(**MONGODB_SETTINGS)
-    print("MongoDB connected successfully!")
+    print("✅ MongoDB connected successfully to:", MONGODB_SETTINGS["host"])
 except Exception as e:
-    print(f"MongoDB connection error: {e}")
+    print(f"❌ MongoDB connection error: {e}")
 
-# MQTT Configuration
+# ------------------------------
+# MQTT CONFIG
+# ------------------------------
 MQTT_SETTINGS = {
-    'BROKER_HOST': os.getenv('MQTT_BROKER_HOST', 'u2cc2628.ala.dedicated.aws.emqxcloud.com'),
+    'BROKER_HOST': os.getenv('MQTT_BROKER_HOST', 'j2a24bbb.ala.dedicated.aws.emqxcloud.com'),
     'BROKER_PORT': int(os.getenv('MQTT_BROKER_PORT', '1883')),
     'USERNAME': os.getenv('MQTT_USERNAME', 'esp32_user'),
     'PASSWORD': os.getenv('MQTT_PASSWORD', 'esp32_pass'),
     'TOPIC': 'esp32/humidity_soil',
 }
 
-# OpenWeather API Configuration
+# ------------------------------
+# OPENWEATHER CONFIG
+# ------------------------------
 OPENWEATHER_SETTINGS = {
     'API_KEY': os.getenv('OPENWEATHER_API_KEY', '0b5d680180d9c99eecfebfd9982873fd'),
     'CITY': os.getenv('OPENWEATHER_CITY', 'Tunis'),
     'BASE_URL': 'https://api.openweathermap.org/data/2.5'
 }
 
-# Database (SQLite for Django admin, but we use MongoDB for data storage)
+# ------------------------------
+# SQLITE (pour Django Admin)
+# ------------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -95,37 +98,20 @@ DATABASES = {
     }
 }
 
-# Password validation
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-# Internationalization
+# ------------------------------
+# AUTRES PARAMÈTRES DJANGO
+# ------------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Logging configuration
-import os
-
+# ------------------------------
+# LOGGING CONFIG
+# ------------------------------
 LOG_DIR = os.path.join(BASE_DIR, "logs")
 os.makedirs(LOG_DIR, exist_ok=True)
 
@@ -143,13 +129,13 @@ LOGGING = {
         },
     },
     'loggers': {
-        'mqtt': {
+        'mqtt_handler': {
             'handlers': ['file', 'console'],
             'level': 'DEBUG',
         },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
     },
 }
-import os
-LOG_DIR = os.path.join(BASE_DIR, 'logs')
-os.makedirs(LOG_DIR, exist_ok=True)
-

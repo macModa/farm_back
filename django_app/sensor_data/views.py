@@ -122,3 +122,20 @@ def get_statistics(request):
             'status': 'error',
             'message': str(e)
         }, status=500)
+        
+from django.http import JsonResponse
+from sensor_data.models import IrrigationPlan
+
+def current_irrigation_plan(request):
+    plan = IrrigationPlan.objects.order_by('-timestamp').first()
+    if plan:
+        data = {
+            "temperature": plan.temperature,
+            "humidity_air": plan.humidity_air,
+            "rain_forecast": plan.rain_forecast,
+            "humidity_soil": plan.humidity_soil,
+            "irrigation_amount": plan.irrigation_amount,
+            "recommendation": plan.recommendation
+        }
+        return JsonResponse(data)
+    return JsonResponse({"error": "No plan found"}, status=404)

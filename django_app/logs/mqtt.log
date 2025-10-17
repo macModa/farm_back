@@ -1,0 +1,46 @@
+MQTT Handler initialized - Broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+Connecting to MQTT broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+MQTT Handler initialized - Broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+Connecting to MQTT broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+Connected to MQTT broker successfully
+Connected to MQTT broker successfully
+Subscribed to topic: esp32/humidity_soil
+Subscribed to topic: esp32/humidity_soil
+MQTT Handler initialized - Broker: emqx:1883
+Connecting to MQTT broker: emqx:1883
+Connected to MQTT broker successfully
+Subscribed to topic: esp32/humidity_soil
+MQTT Handler initialized - Broker: emqx:1883
+Connecting to MQTT broker: emqx:1883
+Connected to MQTT broker successfully
+Subscribed to topic: esp32/humidity_soil
+MQTT Handler initialized - Broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+MQTT Handler initialized - Broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+Connecting to MQTT broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+Connecting to MQTT broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+Subscribed to topic: esp32/humidity_soil
+Subscribed to topic: esp32/humidity_soil
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+MQTT Handler initialized - Broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+Connecting to MQTT broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+MQTT Handler initialized - Broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+Connecting to MQTT broker: j2a24bbb.ala.dedicated.aws.emqxcloud.com:1883
+Subscribed to topic: esp32/humidity_soil
+Subscribed to topic: esp32/humidity_soil
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+Weather data fetched: {'temperature': 24.12, 'humidity_air': 52, 'rain_forecast': 0.0}
+MQTT Handler initialized - Broker: emqx:1883
+Connecting to MQTT broker: emqx:1883
+✅ Connected to MQTT broker
+Subscribed to topic: esp32/humidity_soil
+MQTT Handler initialized - Broker: emqx:1883
+Connecting to MQTT broker: emqx:1883
+✅ Connected to MQTT broker
+Subscribed to topic: esp32/humidity_soil
