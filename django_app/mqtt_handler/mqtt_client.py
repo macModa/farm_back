@@ -72,14 +72,14 @@ class MQTTHandler:
 
     def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
-            logger.info("✅ Connected to MQTT broker")
+            logger.info("[OK] Connected to MQTT broker")
             client.subscribe(self.topic)
             logger.info(f"Subscribed to topic: {self.topic}")
         else:
-            logger.error(f"❌ Failed to connect, rc={rc}")
+            logger.error(f"[FAIL] Failed to connect, rc={rc}")
 
     def on_disconnect(self, client, userdata, rc):
-        logger.warning(f"Disconnected from MQTT broker (rc={rc})")
+        logger.warning(f"[WARN] Disconnected from MQTT broker (rc={rc})")
 
     def on_message(self, client, userdata, msg):
         try:
@@ -96,13 +96,13 @@ class MQTTHandler:
             # Vérifie si 1 heure s'est écoulée depuis la dernière sauvegarde
             now = datetime.utcnow()
             if self.last_saved_time and now - self.last_saved_time < timedelta(hours=1):
-                logger.info("⏱️ Ignoring message (less than 1 hour since last save)")
+                logger.info("[SKIP] Ignoring message (less than 1 hour since last save)")
                 return
 
             # Récupère les données météo
             weather = self.weather_client.get_current_weather()
             if not weather:
-                logger.warning("⚠️ No weather data fetched, skipping save")
+                logger.warning("[WARN] No weather data fetched, skipping save")
                 return
 
             combined_data = {
@@ -117,11 +117,11 @@ class MQTTHandler:
             sensor = SensorData(**combined_data)
             sensor.save()
             self.last_saved_time = now  # update
-            logger.info(f"💾 Data saved to MongoDB (hourly): {combined_data}")
-            print(f"💾 Data saved (hourly): {combined_data}")
+            logger.info(f"[SAVE] Data saved to MongoDB (hourly): {combined_data}")
+            print(f"[SAVE] Data saved (hourly): {combined_data}")
 
         except Exception as e:
-            logger.error(f"❌ Error processing message: {e}")
+            logger.error(f"[ERROR] Error processing message: {e}")
 
     def start(self):
         while True:
@@ -139,5 +139,5 @@ if __name__ == "__main__":
     try:
         handler.start()
     except KeyboardInterrupt:
-        logger.info("🛑 Stopping MQTT client...")
+        logger.info("[STOP] Stopping MQTT client...")
         handler.client.disconnect()
