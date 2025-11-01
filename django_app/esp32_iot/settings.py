@@ -123,9 +123,11 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': os.path.join(LOG_DIR, 'mqtt.log'),
+            'encoding': 'utf-8',
         },
         'console': {
             'class': 'logging.StreamHandler',
+            'encoding': 'utf-8',
         },
     },
     'loggers': {
